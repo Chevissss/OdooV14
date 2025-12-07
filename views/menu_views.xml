@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú principal -->
+    <menuitem id="menu_reserva_root" name="Reserva Canchas" 
+              groups="reserva_canchas.group_reserva_admin,reserva_canchas.group_reserva_staff"/>
+    
+    <!-- Operaciones -->
+    <menuitem id="menu_operaciones" name="Operaciones" parent="menu_reserva_root"/>
+    
+    <menuitem id="menu_nueva_reserva" name="Nueva Reserva" 
+              parent="menu_operaciones" action="action_reserva"/>
+    
+    <menuitem id="menu_mis_clientes" name="Clientes" 
+              parent="menu_operaciones" action="action_cliente"/>
+    
+    <!-- Configuración -->
+    <menuitem id="menu_configuracion" name="Configuración" parent="menu_reserva_root"/>
+    
+    <menuitem id="menu_canchas" name="Canchas" 
+              parent="menu_configuracion" action="reserva_canchas.action_cancha"/>
+    
+    <!-- Reportes -->
+    <menuitem id="menu_reportes" name="Reportes" parent="menu_reserva_root"
+              groups="reserva_canchas.group_reserva_admin"/>
+    
+    <menuitem id="menu_dashboard" name="Dashboard" 
+              parent="menu_reportes" action="action_dashboard"/>
+</odoo>

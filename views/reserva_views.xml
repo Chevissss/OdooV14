@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de árbol -->
+    <record id="view_reserva_tree" model="ir.ui.view">
+        <field name="name">reserva.reserva.tree</field>
+        <field name="model">reserva.reserva</field>
+        <field name="arch" type="xml">
+            <tree string="Reservas" decoration-success="estado=='completada'" 
+                  decoration-warning="estado=='confirmada'" decoration-danger="estado=='cancelada'">
+                <field name="name"/>
+                <field name="cliente_id"/>
+                <field name="cancha_id"/>
+                <field name="fecha"/>
+                <field name="hora_inicio" widget="float_time"/>
+                <field name="duracion"/>
+                <field name="monto_total" widget="monetary"/>
+                <field name="estado" widget="badge"/>
+                <field name="pagado" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_reserva_form" model="ir.ui.view">
+        <field name="name">reserva.reserva.form</field>
+        <field name="model">reserva.reserva</field>
+        <field name="arch" type="xml">
+            <form string="Reserva">
+                <header>
+                    <button name="action_confirmar" string="Confirmar" type="object" 
+                            class="oe_highlight" states="borrador"/>
+                    <button name="action_completar" string="Completar" type="object" 
+                            states="en_curso"/>
+                    <button name="action_no_asistio" string="No Asistió" type="object" 
+                            states="confirmada,en_curso"/>
+                    <button name="action_cancelar" string="Cancelar" type="object" 
+                            states="borrador,confirmada"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,confirmada,completada"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información de Reserva">
+                            <field name="cliente_id" required="1"/>
+                            <field name="cancha_id" required="1"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Detalles">
+                            <field name="fecha" required="1"/>
+                            <field name="hora_inicio" required="1"/>
+                            <field name="hora_fin" required="1"/>
+                            <field name="duracion" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pago">
+                            <field name="monto_total" widget="monetary" readonly="1"/>
+                            <field name="metodo_pago"/>
+                            <field name="pagado"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Notas">
+                            <field name="notas" nolabel="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción de ventana -->
+    <record id="action_reserva" model="ir.actions.act_window">
+        <field name="name">Reservas</field>
+        <field name="res_model">reserva.reserva</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

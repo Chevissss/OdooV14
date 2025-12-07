@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de árbol -->
+    <record id="view_cliente_tree" model="ir.ui.view">
+        <field name="name">reserva.cliente.tree</field>
+        <field name="model">reserva.cliente</field>
+        <field name="arch" type="xml">
+            <tree string="Clientes">
+                <field name="name"/>
+                <field name="dni"/>
+                <field name="telefono"/>
+                <field name="email"/>
+                <field name="tipo_cliente" widget="badge"/>
+                <field name="total_reservas"/>
+                <field name="total_gastado" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_cliente_form" model="ir.ui.view">
+        <field name="name">reserva.cliente.form</field>
+        <field name="model">reserva.cliente</field>
+        <field name="arch" type="xml">
+            <form string="Cliente">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_crear_usuario_portal" type="object" 
+                                class="oe_stat_button" icon="fa-user-plus"
+                                invisible="partner_id">
+                            <span>Crear Portal</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <h3>
+                            <field name="tipo_cliente" widget="badge"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group string="Información Personal">
+                            <field name="dni"/>
+                            <field name="email"/>
+                            <field name="telefono"/>
+                        </group>
+                        <group string="Estadísticas">
+                            <field name="total_reservas"/>
+                            <field name="total_gastado" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Dirección">
+                            <field name="direccion" nolabel="1"/>
+                        </group>
+                    </group>
+                    <field name="partner_id" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción de ventana -->
+    <record id="action_cliente" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">reserva.cliente</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
